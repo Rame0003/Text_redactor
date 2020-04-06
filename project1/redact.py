@@ -129,9 +129,9 @@ def concepts_gen(data):
     stats=("The number of gender based pronouns replaced in the given file is %d \n" %k)
     return data,stats
 
-def stats_display(names, locs, date5, address, conceptstxt, nums, gens, i, opt):
+def stats_display(names, locs, date5, address, conceptstxt, nums, gens, i, opt, name):
     
-    stats=("This is the stats for the document file_%d.redacted.txt \n"%i)
+    stats=("This is the stats for the document for the file named %s.redacted.txt\n"%(name))
     stats+=names
     stats+=locs
     stats+=date5
@@ -157,10 +157,10 @@ def stats_display(names, locs, date5, address, conceptstxt, nums, gens, i, opt):
 
 def file_output(data, k, file):
     text=data
-    textfile = ('./%sfile_%d.redacted.txt' %(file, k))  
+    textfile = ('./%s %s.redacted.txt' %(file, k))
     with open(textfile, "w+") as f:
         f.write(data)
-        f.close() 
+        f.close()
     
 if __name__ == '__main__':
     parser=argparse.ArgumentParser()
@@ -223,10 +223,11 @@ if __name__ == '__main__':
             contxt=("No unique concept words redacted\n")
         if args.stats:
             opt=args.stats
-            stats_display(namestxt, loctxt, datetxt, addtxt, contxt, numtxt, protxt, i, opt)
+            stats_display(namestxt, loctxt, datetxt, addtxt, contxt, numtxt, protxt, i, opt, filename)
         if args.output:
             path=args.output
-            file_output(data, i, path)
+            name=filename
+            file_output(data, name, path)
         i+=1
 
 
