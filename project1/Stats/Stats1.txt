@@ -1,0 +1,8 @@
+This is the stats for the document file_1.redacted.txt 
+The number of unique names replaced in the given file is 0 
+The number of unique locations replaced in the given file is 2 
+The number of unique dates replaced in the given file is 0 
+The number of unique addresses replaced in the given file is 0 
+The number of words related to kids replaced in the given file is 0 
+The number of unique phone numbers replaced in the given file is 0 
+The number of gender based pronouns replaced in the given file is 0 
