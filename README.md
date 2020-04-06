@@ -8,7 +8,9 @@
 ├── COLLABORATORS
 ├── LICENSE
 ├── project1
-│   └── redact.py
+│   ├── redacted_1.txt
+│   ├── redact.py
+│   └── trial.txt
 ├── README.md
 ├── setup.py
 └── testcases
