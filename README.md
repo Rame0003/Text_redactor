@@ -2,6 +2,19 @@
 -------
 ### By Abilash Ramesh
 --------
+### Table Structure:
+```bash
+.
+├── COLLABORATORS
+├── LICENSE
+├── project1
+│   └── redact.py
+├── README.md
+├── setup.py
+└── testcases
+    └── pytest.py
+```
+
 ### Contents:
 
 * Introduction
