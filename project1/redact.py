@@ -125,11 +125,11 @@ def concepts_gen(data):
                 tokens[i]=("█"*len(tokens[i]))
                 k+=1
     data=' '.join(map(str, tokens))
-    if(k!=0):
-        stats=("The number of gender based pronouns replaced in the given file is %d \n" %k)
+    stats=("The number of gender based pronouns replaced in the given file is %d \n" %k)
     return data,stats
 
-def stats_display(names, locs, date5, address, conceptstxt, nums, gens, i):
+def stats_display(names, locs, date5, address, conceptstxt, nums, gens, i, opt):
+    
     stats=("This is the stats for the document redacted_%d.txt \n"%i)
     stats+=names
     stats+=locs
@@ -138,19 +138,21 @@ def stats_display(names, locs, date5, address, conceptstxt, nums, gens, i):
     stats+=conceptstxt
     stats+=nums
     stats+=gens
+    if (opt=="stdout"):
+        print(stats)
+    elif(opt=="store"):
+        textfile = ('./stats/stats%d.txt'%i)  
 
+        if not os.path.exists(os.path.dirname(textfile)):
+            try:
+                os.makedirs(os.path.dirname(textfile))
+            except OSError as exc: 
+                if exc.errno != errno.EEXIST:
+                    raise
 
-    textfile = ('./stats/stats%d.txt'%i)  
+        with open(textfile, "w") as f:
+            f.write(stats)
 
-    if not os.path.exists(os.path.dirname(textfile)):
-        try:
-            os.makedirs(os.path.dirname(textfile))
-        except OSError as exc: 
-            if exc.errno != errno.EEXIST:
-                raise
-
-    with open(textfile, "w") as f:
-        f.write(stats)
 
 
 def file_output(data, k, file):
@@ -162,6 +164,7 @@ def file_output(data, k, file):
 
     
 if __name__ == '__main__':
+
     parser=argparse.ArgumentParser()
     parser.add_argument("--input", required=True, action="store", type=glob.glob, nargs = '?',)
     parser.add_argument("--names", action="store_true")
@@ -171,10 +174,11 @@ if __name__ == '__main__':
     parser.add_argument("--numbers", action="store_true")
     parser.add_argument("--locations", action="store_true")
     parser.add_argument("--concepts", type=str)
-    parser.add_argument("--stats",action="store_true")
+    parser.add_argument("--stats",action="store")
     parser.add_argument("--output", action="store")
     args=parser.parse_args()
-    
+
+
     files=[]
    
     
@@ -222,10 +226,11 @@ if __name__ == '__main__':
             else:
                 contxt=("No unique concept words redacted\n")
             i+=1
-        if args.stats:
-            
-            stats_display(namestxt, loctxt, datetxt, addtxt, contxt, numtxt, protxt, i)
-        if args.output:
-            path=args.output
-            file_output(data, i, path)
+            if args.stats:
+                opt=args.stats
+                stats_display(namestxt, loctxt, datetxt, addtxt, contxt, numtxt, protxt, i, opt)
+            if args.output:
+                path=args.output
+                file_output(data, i, path)
+
 
