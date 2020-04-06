@@ -8,13 +8,19 @@
 ├── COLLABORATORS
 ├── LICENSE
 ├── project1
-│   ├── redacted_1.txt
+│   ├──  trial.txt.redacted.txt
+│   ├──  0_2.txt.redacted.txt
+│   ├──  1_3.txt.redacted.txt
 │   ├── redact.py
-│   └── trial.txt
+│   └── stats
+│       ├── stats0.txt
+│       ├── stats1.txt
+│       └── stats2.txt
 ├── README.md
 ├── setup.py
 └── testcases
     └── pytest.py
+
 ```
 
 ### Contents:
