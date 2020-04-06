@@ -1,0 +1,8 @@
+This is the stats for the document file_1.redacted.txt derived from 0_2.txt 
+The number of unique names replaced in the given file is 4 
+No unique locations redacted
+No unique dates redacted
+No unique addresses redacted
+The number of words related to train replaced in the given file is 0 
+No unique phone numbers redacted
+No unique pronouns redacted
