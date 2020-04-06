@@ -1,5 +1,5 @@
 # Project 1: Text Redactor 
-----
+-------
 ### By Abilash Ramesh
 --------
 ### Contents:
