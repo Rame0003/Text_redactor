@@ -10,7 +10,6 @@
 * How do they work?
 * Stats: What do they do?
 * Output: What do we get?
-* References
 
 ## Introduction:
 
