@@ -18,9 +18,9 @@ import argparse
 nltk.download('wordnet')
 
 def openfiles(filename):
-    for i in files:
-        with open(filename,'r') as file:
-                data=file.read()
+    with open(filename,'r') as file:
+        data=file.read()
+    
     return data
 
 def redact_text(data, lst):
@@ -125,12 +125,13 @@ def concepts_gen(data):
                 tokens[i]=("█"*len(tokens[i]))
                 k+=1
     data=' '.join(map(str, tokens))
+
     stats=("The number of gender based pronouns replaced in the given file is %d \n" %k)
     return data,stats
 
 def stats_display(names, locs, date5, address, conceptstxt, nums, gens, i, opt):
     
-    stats=("This is the stats for the document redacted_%d.txt \n"%i)
+    stats=("This is the stats for the document file_%d.redacted.txt \n"%i)
     stats+=names
     stats+=locs
     stats+=date5
@@ -154,14 +155,12 @@ def stats_display(names, locs, date5, address, conceptstxt, nums, gens, i, opt):
             f.write(stats)
 
 
-
 def file_output(data, k, file):
     text=data
-
-    textfile = ('./%sredacted_%s.txt' %(file, k))  
-    with open(textfile, "w") as f:
+    textfile = ('./%sfile_%d.redacted.txt' %(file, k))  
+    with open(textfile, "w+") as f:
         f.write(data)
-
+        f.close() 
     
 if __name__ == '__main__':
     parser=argparse.ArgumentParser()
@@ -173,66 +172,61 @@ if __name__ == '__main__':
     parser.add_argument("--numbers", action="store_true")
     parser.add_argument("--locations", action="store_true")
     parser.add_argument("--concepts", type=str)
-    parser.add_argument("--stats",choices=("stderr", "stdout", "store"))
-    parser.add_argument("--output", action="store_true")
+    parser.add_argument("--stats",choices=( "stdout", "store"))
+    parser.add_argument("--output", action="store")
     args=parser.parse_args()
-#pipenv run python redact.py --input *.txt --names --dates --locations --gender --numbers --concepts 'subway' --concepts 'transport' --stats "stdout"
-
     
     files=[]
-    unred=[]
     
     for i in args.input:
-        files.append(i) 
-    files
-    for i in filename:
-        for j in i:
-    
-            data=openfiles(j)
+        files.extend(i) 
+    print(files)
 
-            i=0
+    for i in range(0,len(files)):
+        filename=(files[i])
+        data=openfiles(filename)
 
-            if args.names==True:
-                (names, namestxt)=find_names(data)
-                data=redact_text(data, names)
-            else:
-                namestxt=("No unique names redacted\n")
-            if args.dates==True:
-                (dates, datetxt)=find_dates(data)
-                data=redact_text(data, dates)
-            else:
-                datetxt=("No unique dates redacted\n")
-            if args.addresses==True:
-                (address, addtxt)=find_address(data)
-                data=redact_text(data, address)
-            else:
-                addtxt=("No unique addresses redacted\n")
-            if args.gender==True:
-                (data, protxt)=concepts_gen(data)
-            else:
-                protxt=("No unique pronouns redacted\n")
-            if args.numbers==True:
-                (nums, numtxt)=find_numbers(data)
-                (data)=redact_text(data, nums)
-            else:
-                numtxt=("No unique phone numbers redacted\n")
-            if args.locations==True:
-                (loc, loctxt)=find_locs(data)
-                (data)=redact_text(data, loc)
-            else:
-                loctxt=("No unique locations redacted\n")
-            if args.concepts:
-                word=args.concepts
-                syn=concepts(data, word)
-                (data, contxt)=conc_red(data, syn, word)
-            else:
-                contxt=("No unique concept words redacted\n")
-            i+=1
-            if args.stats:
-                opt=arg.stats
-                stats_display(namestxt, loctxt, datetxt, addtxt, contxt, numtxt, protxt, i, opt)
-            if args.output:
-                path=args.output
-                file_output(data, i)
+        if args.names==True:
+            (names, namestxt)=find_names(data)
+            data=redact_text(data, names)
+        else:
+            namestxt=("No unique names redacted\n")
+        if args.dates==True:
+            (dates, datetxt)=find_dates(data)
+            data=redact_text(data, dates)
+        else:
+            datetxt=("No unique dates redacted\n")
+        if args.addresses==True:
+            (address, addtxt)=find_address(data)
+            data=redact_text(data, address)
+        else:
+            addtxt=("No unique addresses redacted\n")
+        if args.gender==True:
+            (data, protxt)=concepts_gen(data)
+        else:
+            protxt=("No unique pronouns redacted\n")
+        if args.numbers==True:
+            (nums, numtxt)=find_numbers(data)
+            (data)=redact_text(data, nums)
+        else:
+            numtxt=("No unique phone numbers redacted\n")
+        if args.locations==True:
+            (loc, loctxt)=find_locs(data)
+            (data)=redact_text(data, loc)
+        else:
+            loctxt=("No unique locations redacted\n")
+        if args.concepts:
+            word=args.concepts
+            syn=concepts(data, word)
+            (data, contxt)=conc_red(data, syn, word)
+        else:
+            contxt=("No unique concept words redacted\n")
+        if args.stats:
+            opt=args.stats
+            stats_display(namestxt, loctxt, datetxt, addtxt, contxt, numtxt, protxt, i, opt)
+        if args.output:
+            path=args.output
+            file_output(data, i, path)
+        i+=1
 
 
