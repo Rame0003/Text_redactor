@@ -164,9 +164,8 @@ def file_output(data, k, file):
 
     
 if __name__ == '__main__':
-
     parser=argparse.ArgumentParser()
-    parser.add_argument("--input", required=True, action="store", type=glob.glob, nargs = '?',)
+    parser.add_argument("--input", required=True, action="store", type=glob.glob, nargs = '+')
     parser.add_argument("--names", action="store_true")
     parser.add_argument("--dates", action="store_true")
     parser.add_argument("--addresses", action="store_true")
@@ -174,22 +173,25 @@ if __name__ == '__main__':
     parser.add_argument("--numbers", action="store_true")
     parser.add_argument("--locations", action="store_true")
     parser.add_argument("--concepts", type=str)
-    parser.add_argument("--stats",action="store")
-    parser.add_argument("--output", action="store")
+    parser.add_argument("--stats",choices=("stderr", "stdout", "store"))
+    parser.add_argument("--output", action="store_true")
     args=parser.parse_args()
+#pipenv run python redact.py --input *.txt --names --dates --locations --gender --numbers --concepts 'subway' --concepts 'transport' --stats "stdout"
 
-
+    
     files=[]
-   
+    unred=[]
     
     for i in args.input:
-        files.append(i)                
-    for j in files:
-        data=openfiles(j)
-        i=0
+        files.append(i) 
+    files
+    for i in filename:
+        for j in i:
+    
+            data=openfiles(j)
 
-        stats=("This is the stats for the document redacted %d.txt \n"%i)
-        if (data!=""):
+            i=0
+
             if args.names==True:
                 (names, namestxt)=find_names(data)
                 data=redact_text(data, names)
@@ -227,10 +229,10 @@ if __name__ == '__main__':
                 contxt=("No unique concept words redacted\n")
             i+=1
             if args.stats:
-                opt=args.stats
+                opt=arg.stats
                 stats_display(namestxt, loctxt, datetxt, addtxt, contxt, numtxt, protxt, i, opt)
             if args.output:
                 path=args.output
-                file_output(data, i, path)
+                file_output(data, i)
 
 
