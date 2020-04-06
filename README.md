@@ -95,3 +95,4 @@ The output flag takes in the location where the user wants their files to be sto
 * https://www.geeksforgeeks.org/get-synonymsantonyms-nltk-wordnet-python/
 * https://pymotw.com/2/argparse/
 * https://stackoverflow.com/questions/23989232/is-there-a-way-to-represent-a-directory-tree-in-a-github-readme-md/35889620
+* https://stackoverflow.com/questions/12517451/automatically-creating-directories-with-file-output
