@@ -86,3 +86,10 @@ The stats flag gives us an overview of the number of each flag that has been red
 
 ## Output: What do we get?
 The output flag takes in the location where the user wants their files to be stored. A proper location should be given to the flag in the format "foldername/". The redacted file is written in the format that it is taken from the parent directory and the filename given to it is its position in the directory. For example, a file that is the first in the directory is redacted and written as "file_#.redacted.txt". 
+
+### References:
+* https://github.com/madisonmay/CommonRegex
+* https://www.geeksforgeeks.org/append-extend-python/
+* https://www.geeksforgeeks.org/get-synonymsantonyms-nltk-wordnet-python/
+* https://pymotw.com/2/argparse/
+* https://stackoverflow.com/questions/23989232/is-there-a-way-to-represent-a-directory-tree-in-a-github-readme-md/35889620
