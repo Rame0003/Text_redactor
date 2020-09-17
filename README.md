@@ -1,4 +1,4 @@
-# Project 1: Text Redactor 
+# Text Redactor 
 -------
 ### By Abilash Ramesh
 --------
